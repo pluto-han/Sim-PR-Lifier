@@ -24,6 +24,11 @@ the extension preserves the existing URL options and enables GitHub's native
 The extension supports both GitHub's current `/changes` interface and the legacy
 `/files` interface.
 
+**Example:**
+
+<img width="719" height="66" alt="image" src="https://github.com/user-attachments/assets/35f289df-15f4-4591-b753-9d82eae45d5a" />
+
+
 ## Supported browsers
 
 Chrome, Firefox, and Edge (Manifest V3).
