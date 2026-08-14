@@ -30,7 +30,6 @@
   gap: 4px;
   padding: 1px 6px;
   border: 1px solid var(--borderColor-muted, var(--color-border-muted, #d0d7de));
-  border-radius: 999px;
   background: var(--bgColor-muted, var(--color-canvas-subtle, #f6f8fa));
   transition: opacity 100ms ease, border-color 100ms ease;
 }
