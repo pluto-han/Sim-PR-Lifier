@@ -1,4 +1,4 @@
-# SimPRler
+# Sim-PR-Lifier
 
 A cross-browser browser extension that adds focusable change categories to a
 GitHub pull request's **Files changed** page. Selections are stored with browser
@@ -6,14 +6,14 @@ sync and continue to work as GitHub loads more files or navigates without a full
 page refresh.
 
 The pull-request header replaces GitHub's combined line total with a breakdown
-for **Code**, **Comments**, **Tests**, **Config**, **Migrations**, and test
+for **Core**, **Comments**, **Tests**, **Config**, **Migrations**, and test
 **Artifacts**. JSON, JSONC, YAML, and YML files count as Config; SQL counts as
 Migrations. Snapshots, golden files, fixtures, recordings, cassettes, and
 `testdata` paths count as Artifacts. A category excluded by the active filters
 is muted and struck through. An **Other** category appears only if GitHub has not
 yet loaded enough file metadata to classify every changed line.
 
-Click one or more categories to compose a focused view, such as **Code +
+Click one or more categories to compose a focused view, such as **Core +
 Config**. Click selected categories again to remove them; clearing the final
 selection returns to the full diff. GitHub's gear menu is left unchanged.
 
