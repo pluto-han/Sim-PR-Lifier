@@ -15,6 +15,7 @@
   align-items: center;
   justify-content: flex-end;
   gap: 4px;
+  margin-left: 12px;
   min-width: 0;
   max-width: 100%;
   font-size: 12px;
@@ -58,6 +59,7 @@
 }
 
 .ghprf-line-stat-label {
+  margin-right: 4px;
   color: var(--fgColor-muted, var(--color-fg-muted, #656d76));
   font-weight: 600;
 }
