@@ -104,6 +104,7 @@
       const view = getViewSettings();
       ui.applyFilters(view);
       ui.renderLineBreakdown(view, toggleCategoryFocus);
+      ui.syncViewedState(view);
     } catch (error) {
       if (!isExtensionContextInvalidated(error)) throw error;
       deactivate();

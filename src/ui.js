@@ -292,6 +292,63 @@
     applyFileTreeFilter(view);
   }
 
+  const VIEWED_CONTROL_SELECTOR = [
+    "input.js-reviewed-checkbox",
+    "input[name='viewed']",
+    "input[data-testid='viewed-toggle']",
+    "button[aria-label='Viewed']",
+    "button[aria-label='Not Viewed']",
+  ].join(",");
+
+  const viewedPending = new Map();
+
+  function getViewedControl(file) {
+    const scopes = [file, file.parentElement, file.parentElement?.parentElement].filter(
+      Boolean,
+    );
+    for (const scope of scopes) {
+      const control = scope.querySelector(VIEWED_CONTROL_SELECTOR);
+      if (control) return control;
+    }
+    return null;
+  }
+
+  function isControlViewed(control) {
+    if (control.tagName === "INPUT") return control.checked;
+    return control.getAttribute("aria-pressed") === "true";
+  }
+
+  function setControlViewed(file, viewed) {
+    const control = getViewedControl(file);
+    if (!control) return;
+    const filePath = dom.readFilePath(file);
+    if (viewedPending.get(filePath) === viewed) return;
+    if (isControlViewed(control) === viewed) {
+      viewedPending.delete(filePath);
+      return;
+    }
+    viewedPending.set(filePath, viewed);
+    control.click();
+  }
+
+  function fileHasVisibleChanges(file, view) {
+    const fileCategory = classify.getFileCategory(dom.readFilePath(file));
+    if (!isFileCategoryVisible(fileCategory, view)) return false;
+    if (fileCategory !== "source") return true;
+    const commentRows = new Set(dom.getCodeCommentRows(file));
+    return dom.getChangedRows(file).some((row) => {
+      if (commentRows.has(row)) return !view.hideCodeComments;
+      return !view.hideCode;
+    });
+  }
+
+  function syncViewedState(view) {
+    if (!view.hasFocus) return;
+    for (const file of dom.getFileDiffs()) {
+      setControlViewed(file, !fileHasVisibleChanges(file, view));
+    }
+  }
+
   function removeFilters() {
     for (const element of document.querySelectorAll(
       ".ghprf-hidden-category, .ghprf-hidden-tree-item, " +
@@ -325,5 +382,6 @@
     isLineCategoryVisible,
     removeFilters,
     renderLineBreakdown,
+    syncViewedState,
   };
 });

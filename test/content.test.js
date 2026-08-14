@@ -512,3 +512,75 @@ test("enables hidden whitespace by default without dropping URL state", async ()
   dom.window.dispatchEvent(new dom.window.Event("pagehide"));
   dom.window.close();
 });
+
+test("syncs viewed state with the active focus", async () => {
+  const dom = new JSDOM(
+    `<!doctype html><html><body><main>
+      <div id="native-summary">
+        <span class="sr-only">Lines changed: 10 additions & 0 deletions</span>
+      </div>
+      <div role="region" id="diff-source">
+        <h3><a href="#diff-source">src/app.js</a></h3>
+        <input class="js-reviewed-checkbox" name="viewed" type="checkbox" />
+        <table><tbody>
+          <tr id="source-line"><td><code class="diff-text addition">+run()</code></td></tr>
+        </tbody></table>
+      </div>
+      <div role="region" id="diff-test">
+        <h3><a href="#diff-test">tests/parser_test.go</a></h3>
+        <input class="js-reviewed-checkbox" name="viewed" type="checkbox" />
+      </div>
+    </main></body></html>`,
+    {
+      pretendToBeVisual: true,
+      runScripts: "outside-only",
+      url: "https://github.com/acme/project/pull/42/changes?w=1",
+    },
+  );
+
+  const persistedSettings = [];
+  dom.window.chrome = {
+    storage: {
+      sync: {
+        get: (_defaults, callback) =>
+          callback({
+            simprlerSettings: { focusCategories: [] },
+          }),
+        set: (value) => persistedSettings.push(JSON.parse(JSON.stringify(value))),
+      },
+    },
+  };
+  loadExtension(dom);
+  await nextFrame(dom.window);
+
+  const sourceViewed = dom.window.document.querySelector(
+    "#diff-source .js-reviewed-checkbox",
+  );
+  const testViewed = dom.window.document.querySelector(
+    "#diff-test .js-reviewed-checkbox",
+  );
+  const codeStat = dom.window.document.querySelector(
+    "[data-ghprf-category='core']",
+  );
+
+  assert.equal(sourceViewed.checked, false);
+  assert.equal(testViewed.checked, false);
+
+  codeStat.click();
+  assert.equal(sourceViewed.checked, false, "source file stays unviewed");
+  assert.equal(testViewed.checked, true, "test file becomes viewed");
+
+  testStatClick(dom, "tests");
+  assert.equal(testViewed.checked, false, "test file is unviewed again");
+  assert.equal(sourceViewed.checked, false);
+
+  dom.window.dispatchEvent(new dom.window.Event("pagehide"));
+  dom.window.close();
+});
+
+function testStatClick(dom, category) {
+  const stat = dom.window.document.querySelector(
+    `[data-ghprf-category='${category}']`,
+  );
+  stat.click();
+}
