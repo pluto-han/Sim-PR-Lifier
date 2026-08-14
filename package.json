@@ -1,0 +1,14 @@
+{
+  "name": "simprler",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cross-browser extension that focuses GitHub PR diffs by category.",
+  "scripts": {
+    "test": "node --test",
+    "package": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package.ps1",
+    "package:bash": "bash scripts/package.sh"
+  },
+  "devDependencies": {
+    "jsdom": "^28.0.0"
+  }
+}

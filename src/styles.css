@@ -1,0 +1,89 @@
+.ghprf-hidden-category,
+.ghprf-hidden-tree-item,
+.ghprf-hidden-code-line,
+.ghprf-hidden-code-comment {
+  display: none !important;
+}
+
+.ghprf-native-line-summary {
+  display: none !important;
+}
+
+.ghprf-line-breakdown {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  min-width: 0;
+  max-width: 100%;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ghprf-line-stat {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 1px 6px;
+  border: 1px solid var(--borderColor-muted, var(--color-border-muted, #d0d7de));
+  border-radius: 999px;
+  background: var(--bgColor-muted, var(--color-canvas-subtle, #f6f8fa));
+  transition: opacity 100ms ease, border-color 100ms ease;
+}
+
+.ghprf-line-stat--action {
+  appearance: none;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  cursor: pointer;
+}
+
+.ghprf-line-stat--action:hover {
+  border-color: var(--borderColor-default, var(--color-border-default, #8c959f));
+  background: var(--control-transparent-bgColor-hover, var(--color-action-list-item-default-hover-bg, rgba(177, 186, 196, 0.12)));
+}
+
+.ghprf-line-stat--action:focus-visible {
+  outline: 2px solid var(--focus-outlineColor, var(--color-accent-fg, #0969da));
+  outline-offset: 2px;
+}
+
+.ghprf-line-stat--action[aria-pressed="true"] {
+  border-color: var(--fgColor-accent, var(--color-accent-fg, #0969da));
+  box-shadow: inset 0 0 0 1px var(--fgColor-accent, var(--color-accent-fg, #0969da));
+}
+
+.ghprf-line-stat-label {
+  color: var(--fgColor-muted, var(--color-fg-muted, #656d76));
+  font-weight: 600;
+}
+
+.ghprf-line-additions {
+  color: var(--fgColor-success, var(--color-success-fg, #1a7f37));
+  font-weight: 600;
+}
+
+.ghprf-line-deletions {
+  color: var(--fgColor-danger, var(--color-danger-fg, #cf222e));
+  font-weight: 600;
+}
+
+.ghprf-line-stat--excluded {
+  border-style: dashed;
+  background: transparent;
+  opacity: 0.55;
+}
+
+.ghprf-line-stat--excluded .ghprf-line-stat-label {
+  text-decoration: line-through;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ghprf-line-stat {
+    transition: none;
+  }
+}

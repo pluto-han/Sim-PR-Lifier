@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "SimPRler - Simpler PR Focus",
+  "version": "0.1.0",
+  "description": "Focus GitHub pull request diffs with category filters and split line counts.",
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/*/*/pull/*"],
+      "js": [
+        "src/classify.js",
+        "src/storage.js",
+        "src/dom.js",
+        "src/ui.js",
+        "src/content.js"
+      ],
+      "css": ["src/styles.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}
