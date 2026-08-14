@@ -101,14 +101,15 @@
       );
     }
 
-    function getFileCategory(filePath) {
-      const normalized = normalizeFilePath(filePath).toLowerCase();
-      if (isTestArtifact(normalized)) return "artifacts";
-      if (isTestFile(normalized)) return "tests";
-      if (/\.(?:jsonc?|ya?ml)$/.test(normalized)) return "config";
-      if (/\.sql$/.test(normalized)) return "migrations";
-      return "source";
-    }
+function getFileCategory(filePath) {
+    const normalized = normalizeFilePath(filePath).toLowerCase();
+    if (isTestArtifact(normalized)) return "artifacts";
+    if (isTestFile(normalized)) return "tests";
+    if (/\.(?:md|markdown)$/.test(normalized)) return "doc";
+    if (/\.(?:jsonc?|ya?ml)$/.test(normalized)) return "config";
+    if (/\.sql$/.test(normalized)) return "migrations";
+    return "source";
+  }
 
     return { getFileCategory, isTestArtifact, isTestFile, normalizeFilePath };
   },

@@ -14,6 +14,7 @@
     "core",
     "comments",
     "tests",
+    "doc",
     "config",
     "migrations",
     "artifacts",
@@ -22,6 +23,7 @@
     { id: "core", label: "Core" },
     { id: "comments", label: "Comments" },
     { id: "tests", label: "Tests" },
+    { id: "doc", label: "Doc" },
     { id: "config", label: "Config" },
     { id: "migrations", label: "Migrations" },
     { id: "artifacts", label: "Artifacts" },
@@ -120,6 +122,7 @@
       comments: { additions: 0, deletions: 0 },
       config: { additions: 0, deletions: 0 },
       core: { additions: 0, deletions: 0 },
+      doc: { additions: 0, deletions: 0 },
       migrations: { additions: 0, deletions: 0 },
       other: { additions: 0, deletions: 0 },
       tests: { additions: 0, deletions: 0 },
@@ -160,6 +163,7 @@
       const knownAdditions =
         breakdown.core.additions +
         breakdown.comments.additions +
+        breakdown.doc.additions +
         breakdown.config.additions +
         breakdown.migrations.additions +
         breakdown.artifacts.additions +
@@ -167,6 +171,7 @@
       const knownDeletions =
         breakdown.core.deletions +
         breakdown.comments.deletions +
+        breakdown.doc.deletions +
         breakdown.config.deletions +
         breakdown.migrations.deletions +
         breakdown.artifacts.deletions +

@@ -58,6 +58,8 @@ test("removes GitHub's bidirectional path markers", () => {
 test("splits config, migrations, and test artifacts from source code", () => {
   const categories = new Map([
     ["src/app.go", "source"],
+    ["docs/architecture.md", "doc"],
+    ["docs/guide.markdown", "doc"],
     ["config/app.json", "config"],
     ["deploy/values.yaml", "config"],
     ["db/migrations/001_create_users.sql", "migrations"],
