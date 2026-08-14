@@ -51,7 +51,7 @@ test("applies saved focus to old and dynamically loaded diff content", async () 
       sync: {
         get: (_defaults, callback) =>
           callback({
-            simprlerSettings: { focusCategories: ["code"] },
+            simprlerSettings: { focusCategories: ["core"] },
           }),
         set: (value) => writes.push(value),
       },
@@ -268,7 +268,7 @@ test("supports the current changes route and progressive diff containers", async
     true,
   );
 
-  const codeStat = lineBreakdown.querySelector("[data-ghprf-category='code']");
+  const codeStat = lineBreakdown.querySelector("[data-ghprf-category='core']");
   const commentStat = lineBreakdown.querySelector(
     "[data-ghprf-category='comments']",
   );
@@ -290,7 +290,7 @@ test("supports the current changes route and progressive diff containers", async
   assert.equal(codeStat.getAttribute("aria-pressed"), "false");
   assert.equal(commentStat.getAttribute("aria-pressed"), "false");
   assert.equal(testStat.getAttribute("aria-pressed"), "false");
-  assert.equal(codeStat.textContent.replace(/\s+/g, ""), "Code+3−1");
+  assert.equal(codeStat.textContent.replace(/\s+/g, ""), "Core+3−1");
   assert.equal(commentStat.textContent.replace(/\s+/g, ""), "Comments+1−1");
   assert.equal(testStat.textContent.replace(/\s+/g, ""), "Tests+3−1");
   assert.equal(configStat.textContent.replace(/\s+/g, ""), "Config+2−0");
@@ -320,7 +320,7 @@ test("supports the current changes route and progressive diff containers", async
   assert.equal(testWrapper.classList.contains("ghprf-hidden-category"), true);
   assert.equal(migrationWrapper.classList.contains("ghprf-hidden-category"), true);
   assert.deepEqual(persistedSettings.at(-1), {
-    simprlerSettings: { focusCategories: ["code", "config"] },
+    simprlerSettings: { focusCategories: ["core", "config"] },
   });
 
   codeStat.click();
@@ -393,7 +393,7 @@ test("deactivates stale UI when Chrome invalidates the extension context", async
   await nextFrame(dom.window);
 
   const codeStat = dom.window.document.querySelector(
-    "[data-ghprf-category='code']",
+    "[data-ghprf-category='core']",
   );
   assert.ok(codeStat);
   assert.doesNotThrow(() => codeStat.click());

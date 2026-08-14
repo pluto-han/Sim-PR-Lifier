@@ -38,7 +38,7 @@
     return {
       focusCategories,
       hasFocus,
-      hideCode: hasFocus && !focusCategories.has("code"),
+      hideCode: hasFocus && !focusCategories.has("core"),
       hideCodeComments: hasFocus && !focusCategories.has("comments"),
     };
   }

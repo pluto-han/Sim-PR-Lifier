@@ -11,7 +11,7 @@
   "use strict";
 
   const CATEGORY_ORDER = [
-    "code",
+    "core",
     "comments",
     "tests",
     "config",
@@ -19,7 +19,7 @@
     "artifacts",
   ];
   const CATEGORIES = [
-    { id: "code", label: "Code" },
+    { id: "core", label: "Core" },
     { id: "comments", label: "Comments" },
     { id: "tests", label: "Tests" },
     { id: "config", label: "Config" },
@@ -34,7 +34,7 @@
     if (!view.hasFocus) return true;
     if (category === "source") {
       return (
-        view.focusCategories.has("code") ||
+        view.focusCategories.has("core") ||
         view.focusCategories.has("comments")
       );
     }
@@ -42,7 +42,7 @@
   }
 
   function isLineCategoryVisible(category, view) {
-    if (category === "code") {
+    if (category === "core") {
       return isFileCategoryVisible("source", view) && !view.hideCode;
     }
     if (category === "comments") {
@@ -117,9 +117,9 @@
   function collectLineBreakdown() {
     const breakdown = {
       artifacts: { additions: 0, deletions: 0 },
-      code: { additions: 0, deletions: 0 },
       comments: { additions: 0, deletions: 0 },
       config: { additions: 0, deletions: 0 },
+      core: { additions: 0, deletions: 0 },
       migrations: { additions: 0, deletions: 0 },
       other: { additions: 0, deletions: 0 },
       tests: { additions: 0, deletions: 0 },
@@ -134,8 +134,8 @@
         continue;
       }
 
-      breakdown.code.additions += fileStats.additions;
-      breakdown.code.deletions += fileStats.deletions;
+      breakdown.core.additions += fileStats.additions;
+      breakdown.core.deletions += fileStats.deletions;
       for (const cell of dom.getChangedLineCells(file)) {
         if (!dom.isCommentOnlyCell(cell)) continue;
         const type = dom.getLineChangeType(cell);
@@ -143,13 +143,13 @@
       }
     }
 
-    breakdown.code.additions = Math.max(
+    breakdown.core.additions = Math.max(
       0,
-      breakdown.code.additions - breakdown.comments.additions,
+      breakdown.core.additions - breakdown.comments.additions,
     );
-    breakdown.code.deletions = Math.max(
+    breakdown.core.deletions = Math.max(
       0,
-      breakdown.code.deletions - breakdown.comments.deletions,
+      breakdown.core.deletions - breakdown.comments.deletions,
     );
 
     const nativeTotal = dom
@@ -158,14 +158,14 @@
       .find(Boolean);
     if (nativeTotal) {
       const knownAdditions =
-        breakdown.code.additions +
+        breakdown.core.additions +
         breakdown.comments.additions +
         breakdown.config.additions +
         breakdown.migrations.additions +
         breakdown.artifacts.additions +
         breakdown.tests.additions;
       const knownDeletions =
-        breakdown.code.deletions +
+        breakdown.core.deletions +
         breakdown.comments.deletions +
         breakdown.config.deletions +
         breakdown.migrations.deletions +
